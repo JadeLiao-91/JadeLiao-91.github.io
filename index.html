@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jade · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F1E8;
+  --bg-card: #FFFFFF;
+  --bg-photo: #D8CFBE;
+  --text: #1A1815;
+  --text-muted: rgba(26, 24, 21, 0.72);
+  --text-faint: rgba(26, 24, 21, 0.5);
+  --border: rgba(26, 24, 21, 0.15);
+  --border-light: rgba(26, 24, 21, 0.1);
+  --accent: #B8470E;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+a { color: inherit; }
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.nav-logo {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.nav-links a {
+  text-decoration: none;
+  opacity: 0.6;
+  margin-left: 28px;
+  transition: opacity 0.2s;
+}
+.nav-links a:hover { opacity: 1; }
+
+/* HERO */
+.hero {
+  padding: 64px 32px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 24px;
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(52px, 8.5vw, 96px);
+  line-height: 0.95;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.hero h1 .accent { font-style: italic; color: var(--accent); }
+.hero-meta {
+  text-align: right;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  padding-bottom: 12px;
+}
+.hero-meta div { margin-bottom: 6px; }
+
+/* PORTRAIT BLOCK */
+.portrait-block {
+  padding: 32px 32px 96px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: end;
+}
+.portrait {
+  aspect-ratio: 4/5;
+  background: var(--bg-photo);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background-image: repeating-linear-gradient(135deg, transparent 0 16px, rgba(255,255,255,0.15) 16px 17px);
+}
+.portrait img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.portrait::after {
+  content: 'PORTRAIT';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: rgba(26,24,21,0.35);
+}
+.portrait img:not([src=""]) ~ * { display: none; }
+.portrait-tagline {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.4;
+  font-style: italic;
+  padding-bottom: 16px;
+}
+
+/* SECTION */
+.section { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 40px;
+  padding-bottom: 32px;
+}
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  padding-bottom: 80px;
+}
+.about-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 2.8vw, 32px);
+  line-height: 1.3;
+  font-style: italic;
+}
+.about-body { font-size: 16px; line-height: 1.8; color: var(--text-muted); }
+.about-body p { margin-bottom: 1.1em; }
+.about-body em { font-style: italic; color: var(--text); }
+
+/* INFO BAR */
+.info-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-bottom: 96px;
+}
+.info-item { border-top: 1px solid var(--border-light); padding-top: 14px; }
+.info-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 6px;
+}
+.info-value {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+/* VALUES */
+.values-section { padding-bottom: 96px; }
+.values-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(26px, 3.2vw, 38px);
+  line-height: 1.3;
+  margin-bottom: 56px;
+  max-width: 760px;
+}
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.value-card { border-top: 2px solid var(--accent); padding-top: 18px; }
+.value-name { font-family: var(--font-serif); font-size: 26px; margin-bottom: 8px; }
+.value-desc { font-size: 14px; line-height: 1.65; color: var(--text-muted); }
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 240px 160px;
+  gap: 12px;
+  padding-bottom: 96px;
+}
+.photo {
+  background: var(--bg-photo);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background-image: repeating-linear-gradient(45deg, transparent 0 14px, rgba(255,255,255,0.18) 14px 15px);
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
+.photo:nth-child(1) { grid-row: 1 / 3; background-color: #C7B8A0; }
+.photo:nth-child(3) { background-color: #BFA88A; }
+.photo:nth-child(5) { background-color: #B5A085; }
+.photo-cap {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--bg);
+  padding: 4px 8px;
+  border-radius: 3px;
+  z-index: 2;
+}
+
+/* HIGHLIGHTS */
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding-bottom: 96px;
+}
+.tile {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 20px;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.tile:hover { border-color: var(--accent); transform: translateY(-3px); }
+.tile-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.tile-num { font-family: var(--font-serif); font-style: italic; font-size: 14px; opacity: 0.4; }
+.tile-icon { font-size: 24px; color: var(--accent); }
+.tile-label { font-size: 15px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; }
+.tile-meta { font-size: 11px; opacity: 0.55; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* ESSAYS LIST */
+.essays-list { padding-bottom: 32px; }
+.essay-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 32px;
+  align-items: baseline;
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+}
+.essay-row:hover .essay-title { color: var(--accent); }
+.essay-num { font-family: var(--font-serif); font-style: italic; font-size: 16px; opacity: 0.5; }
+.essay-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 400;
+  line-height: 1.1;
+  transition: color 0.2s;
+}
+.essay-meta {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  text-align: right;
+}
+.essay-meta span { display: block; margin-bottom: 4px; }
+
+/* NARRATIVE */
+.narrative-block {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+.narrative-kind {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 16px;
+}
+.narrative-block h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 5.5vw, 60px);
+  font-weight: 400;
+  line-height: 1.05;
+  margin-bottom: 40px;
+  letter-spacing: -0.01em;
+}
+.narrative-block p { font-size: 17px; line-height: 1.85; margin-bottom: 1.2em; color: var(--text); }
+.narrative-block em { font-style: italic; }
+
+/* ESSAY DETAILS */
+.essay-detail {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+.essay-detail .essay-kind-tag {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 16px;
+}
+.essay-detail h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 5vw, 54px);
+  font-weight: 400;
+  line-height: 1.05;
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+}
+.essay-prompt {
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent);
+  padding: 20px 24px;
+  margin: 24px 0 40px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  border-radius: 0 6px 6px 0;
+}
+.essay-prompt strong {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.essay-body p { font-size: 16px; line-height: 1.85; margin-bottom: 1.2em; }
+.essay-revision-toggle {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--text);
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 24px;
+}
+.essay-revision-toggle:hover { background: var(--text); color: var(--bg); }
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 720px) {
+  .nav { flex-direction: column; gap: 12px; padding: 20px; }
+  .nav-links a { margin: 0 12px; }
+  .hero { grid-template-columns: 1fr; padding: 40px 20px 16px; }
+  .hero-meta { text-align: left; }
+  .portrait-block { grid-template-columns: 1fr; padding: 24px 20px 64px; gap: 24px; }
+  .section { padding: 0 20px; }
+  .about-grid { grid-template-columns: 1fr; gap: 24px; }
+  .info-bar { grid-template-columns: repeat(2, 1fr); }
+  .values-grid { grid-template-columns: 1fr; gap: 24px; }
+  .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 180px 140px 140px; }
+  .gallery .photo:nth-child(1) { grid-row: 1 / 2; grid-column: 1 / 3; }
+  .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+  .essay-row { grid-template-columns: 50px 1fr; gap: 16px; }
+  .essay-row .essay-meta { display: none; }
+  .footer { flex-direction: column; gap: 8px; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <div class="nav-logo">Jade</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#highlights">HFI</a>
+    <a href="#writing">Writing</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<header class="hero">
+  <h1>A reader,<br>a writer,<br>a <span class="accent">restless</span> mind.</h1>
+  <div class="hero-meta">
+    <div>HFI · Ainsworth</div>
+    <div>Quanzhou → Guangzhou</div>
+    <div>中文 · English</div>
+  </div>
+</header>
+
+<!-- ============== PORTRAIT BLOCK ============== -->
+<section class="portrait-block">
+  <div class="portrait">
+    <img src="images/portrait.jpg" alt="Portrait of Jade" onerror="this.style.display='none'">
+  </div>
+  <div class="portrait-tagline">
+    "Born in a tea town, raised in a teahouse city, learning to think in two languages."
+  </div>
+</section>
+
+<!-- ============== ABOUT ============== -->
+<section class="section" id="about">
+  <div class="section-label">
+    <span>01 — About</span>
+    <span>Who, what, why</span>
+  </div>
+  <div class="about-grid">
+    <div class="about-quote">
+      "To be chary of the easy answer is to take thinking seriously."
+    </div>
+    <div class="about-body">
+      <p>I was born in Quanzhou, Fujian — the place Tieguanyin tea comes from — and grew up in Guangzhou, where I spent a lot of time in teahouses listening to grown-ups argue. I'm now a junior at HFI, in the Ainsworth class.</p>
+      <p>My two favorite classes look like opposites but feel the same to me. In AP World History with Mr. Schneider, we look at texts and patterns to figure out how things change (and don't change) over time. In AP Physics C with Dr. Ma, we do the same kind of thing — just with equations. Both classes are basically asking: <em>what stays the same across different cases?</em></p>
+      <p>In AP Lang, Dr. Li taught us about System 1 and System 2 thinking, and it stuck. I notice it in myself: in Chinese, I just say what I think. In English, I run it past myself two or three times first.</p>
+      <p>I'm still working out which version of me I trust more.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== INFO BAR ============== -->
+<section class="section">
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">Hometown</div>
+      <div class="info-value">Quanzhou, Fujian</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Grew up in</div>
+      <div class="info-value">Guangzhou</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Previously</div>
+      <div class="info-value">广州天省实验</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Currently</div>
+      <div class="info-value">HFI · Ainsworth</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== VALUES ============== -->
+<section class="section values-section">
+  <div class="section-label">
+    <span>02 — What I hold onto</span>
+    <span>Values & philosophy</span>
+  </div>
+  <div class="values-quote">
+    "The harder you work, the better your chances — as long as you're paying attention to what you're actually working on."
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-name">Diligence</div>
+      <div class="value-desc">Tea takes time. So does anything good.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-name">Attention</div>
+      <div class="value-desc">To patterns, to language, to whoever I'm talking to.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-name">Roots</div>
+      <div class="value-desc">Quanzhou is where my family is from. Guangzhou is where I grew up.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== GALLERY ============== -->
+<section class="section" id="photos">
+  <div class="section-label">
+    <span>03 — Photographs</span>
+    <span>Selected moments</span>
+  </div>
+  <div class="gallery">
+    <div class="photo">
+      <img src="images/photo-1.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 1</div>
+    </div>
+    <div class="photo">
+      <img src="images/photo-2.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 2</div>
+    </div>
+    <div class="photo">
+      <img src="images/photo-3.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 3</div>
+    </div>
+    <div class="photo">
+      <img src="images/photo-4.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 4</div>
+    </div>
+    <div class="photo">
+      <img src="images/photo-5.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 5</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== HIGHLIGHTS ============== -->
+<section class="section" id="highlights">
+  <div class="section-label">
+    <span>04 — Highlights at HFI</span>
+    <span>Selected · 2024–26</span>
+  </div>
+  <div class="highlights-grid">
+    <div class="tile">
+      <div class="tile-top">
+        <div class="tile-icon">◆</div>
+        <div class="tile-num">i.</div>
+      </div>
+      <div>
+        <div class="tile-label">Club name</div>
+        <div class="tile-meta">Role · Years</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-top">
+        <div class="tile-icon">★</div>
+        <div class="tile-num">ii.</div>
+      </div>
+      <div>
+        <div class="tile-label">Academic highlight</div>
+        <div class="tile-meta">Detail</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-top">
+        <div class="tile-icon">●</div>
+        <div class="tile-num">iii.</div>
+      </div>
+      <div>
+        <div class="tile-label">Sport</div>
+        <div class="tile-meta">Level · Event</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-top">
+        <div class="tile-icon">▲</div>
+        <div class="tile-num">iv.</div>
+      </div>
+      <div>
+        <div class="tile-label">Something else</div>
+        <div class="tile-meta">Detail</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ESSAYS LIST ============== -->
+<section class="section" id="writing">
+  <div class="section-label">
+    <span>05 — Three essays</span>
+    <span>AP Lang · 2025–26</span>
+  </div>
+  <div class="essays-list">
+    <a class="essay-row" href="#essay-1">
+      <div class="essay-num">No. 1</div>
+      <div><div class="essay-title">Argument essay — title TBD</div></div>
+      <div class="essay-meta"><span>Argument</span><span>Read →</span></div>
+    </a>
+    <a class="essay-row" href="#essay-2">
+      <div class="essay-num">No. 2</div>
+      <div><div class="essay-title">Rhetorical analysis — title TBD</div></div>
+      <div class="essay-meta"><span>Rhetorical analysis</span><span>Read →</span></div>
+    </a>
+    <a class="essay-row" href="#essay-3">
+      <div class="essay-num">No. 3</div>
+      <div><div class="essay-title">Synthesis essay — title TBD</div></div>
+      <div class="essay-meta"><span>Synthesis</span><span>Read →</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ============== NARRATIVE ============== -->
+<article class="narrative-block" id="narrative">
+  <div class="narrative-kind">06 — Personal narrative</div>
+  <h2>On thinking in two languages</h2>
+  <p>I grew up speaking Cantonese at home and Mandarin at school, drinking tea poured by both my grandfathers. Guangzhou is the kind of city where people still go to teahouses to argue about politics, property, anything. I didn't really "learn" Chinese. It was just how we talked.</p>
+  <p>English came later — first as a school subject, then as the language of pretty much everything I do at HFI. I noticed something almost right away: I sound different in English. Slower. More careful. In Chinese, I'll just say what I'm thinking. In English, I run it past myself two or three times before I open my mouth.</p>
+  <p>I thought this was just a me thing. Then I read Keysar, Hayakawa, and An (2012). They found that bilingual people make less biased decisions in their second language — not because it makes you smarter, but because it carries less emotional weight. Your first language is the language of your family, your jokes, the things that embarrass you. A second language doesn't have all that. So the version of me that speaks English is more careful. The version of me that speaks Chinese is more... actually me, just unfiltered.</p>
+  <p>That kind of bothers me. Which version do I trust? Which one is <em>me</em>?</p>
+  <p>I haven't figured it out yet. But here's where I am right now — I don't think I have to pick. Quanzhou is where my family is from. Guangzhou is where I grew up. HFI is where I'm learning to think in a second language, and learning that <em>thinking itself has a language</em>.</p>
+  <p>I'm trying to be the person who can sit in all three rooms.</p>
+</article>
+
+<!-- ============== ESSAY DETAILS (placeholders) ============== -->
+<article class="essay-detail" id="essay-1">
+  <div class="essay-kind-tag">Essay No. 1 — Argument</div>
+  <h2>Argument essay — title TBD</h2>
+  <div class="essay-prompt">
+    <strong>Prompt</strong>
+    [Paste the original AP Lang prompt here.]
+  </div>
+  <div class="essay-body">
+    <p>[Paste the typed version of your essay here. Each paragraph becomes a &lt;p&gt; tag.]</p>
+    <p>[Second paragraph.]</p>
+  </div>
+</article>
+
+<article class="essay-detail" id="essay-2">
+  <div class="essay-kind-tag">Essay No. 2 — Rhetorical analysis</div>
+  <h2>Rhetorical analysis — title TBD</h2>
+  <div class="essay-prompt">
+    <strong>Prompt</strong>
+    [Paste the original AP Lang prompt here.]
+  </div>
+  <div class="essay-body">
+    <p>[Paste the typed version of your essay here.]</p>
+  </div>
+</article>
+
+<article class="essay-detail" id="essay-3">
+  <div class="essay-kind-tag">Essay No. 3 — Synthesis</div>
+  <h2>Synthesis essay — title TBD</h2>
+  <div class="essay-prompt">
+    <strong>Prompt</strong>
+    [Paste the original AP Lang prompt here.]
+  </div>
+  <div class="essay-body">
+    <p>[Paste the typed version of your essay here.]</p>
+  </div>
+</article>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer" id="contact">
+  <span>© Jade · 2026</span>
+  <span>Built by hand</span>
+</footer>
+
+</body>
+</html>
