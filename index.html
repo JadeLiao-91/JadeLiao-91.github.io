@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Jason · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F1E8;
+  --bg-card: #FFFFFF;
+  --bg-photo: #D8CFBE;
+  --text: #1A1815;
+  --text-muted: rgba(26, 24, 21, 0.72);
+  --text-faint: rgba(26, 24, 21, 0.5);
+  --border: rgba(26, 24, 21, 0.15);
+  --border-light: rgba(26, 24, 21, 0.1);
+  --accent: #B8470E;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+a { color: inherit; }
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.nav-logo {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.nav-links a {
+  text-decoration: none;
+  opacity: 0.6;
+  margin-left: 28px;
+  transition: opacity 0.2s;
+}
+.nav-links a:hover { opacity: 1; }
+
+/* HERO */
+.hero {
+  padding: 64px 32px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 24px;
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(52px, 8.5vw, 96px);
+  line-height: 0.95;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.hero h1 .accent { font-style: italic; color: var(--accent); }
+.hero-meta {
+  text-align: right;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  padding-bottom: 12px;
+}
+.hero-meta div { margin-bottom: 6px; }
+
+/* PORTRAIT BLOCK */
+.portrait-block {
+  padding: 32px 32px 96px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: end;
+}
+.portrait {
+  aspect-ratio: 4/5;
+  background: var(--bg-photo);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background-image: repeating-linear-gradient(135deg, transparent 0 16px, rgba(255,255,255,0.15) 16px 17px);
+}
+.portrait img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.portrait::after {
+  content: 'PORTRAIT';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: rgba(26,24,21,0.35);
+}
+.portrait img:not([src=""]) ~ * { display: none; }
+.portrait-tagline {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.4;
+  font-style: italic;
+  padding-bottom: 16px;
+}
+
+/* SECTION */
+.section { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 40px;
+  padding-bottom: 32px;
+}
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  padding-bottom: 80px;
+}
+.about-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 2.8vw, 32px);
+  line-height: 1.3;
+  font-style: italic;
+}
+.about-body { font-size: 16px; line-height: 1.8; color: var(--text-muted); }
+.about-body p { margin-bottom: 1.1em; }
+.about-body em { font-style: italic; color: var(--text); }
+
+/* INFO BAR */
+.info-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-bottom: 96px;
+}
+.info-item { border-top: 1px solid var(--border-light); padding-top: 14px; }
+.info-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 6px;
+}
+.info-value {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+/* VALUES */
+.values-section { padding-bottom: 96px; }
+.values-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(26px, 3.2vw, 38px);
+  line-height: 1.3;
+  margin-bottom: 56px;
+  max-width: 760px;
+}
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.value-card { border-top: 2px solid var(--accent); padding-top: 18px; }
+.value-name { font-family: var(--font-serif); font-size: 26px; margin-bottom: 8px; }
+.value-desc { font-size: 14px; line-height: 1.65; color: var(--text-muted); }
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 240px 160px;
+  gap: 12px;
+  padding-bottom: 96px;
+}
+.photo {
+  background: var(--bg-photo);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background-image: repeating-linear-gradient(45deg, transparent 0 14px, rgba(255,255,255,0.18) 14px 15px);
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
+.photo:nth-child(1) { grid-row: 1 / 3; background-color: #C7B8A0; }
+.photo:nth-child(3) { background-color: #BFA88A; }
+.photo:nth-child(5) { background-color: #B5A085; }
+.photo-cap {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--bg);
+  padding: 4px 8px;
+  border-radius: 3px;
+  z-index: 2;
+}
+
+/* HIGHLIGHTS */
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding-bottom: 96px;
+}
+.tile {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 20px;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.tile:hover { border-color: var(--accent); transform: translateY(-3px); }
+.tile-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.tile-num { font-family: var(--font-serif); font-style: italic; font-size: 14px; opacity: 0.4; }
+.tile-icon { font-size: 24px; color: var(--accent); }
+.tile-label { font-size: 15px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; }
+.tile-meta { font-size: 11px; opacity: 0.55; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* ESSAYS LIST */
+.essays-list { padding-bottom: 32px; }
+.essay-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 32px;
+  align-items: baseline;
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+}
+.essay-row:hover .essay-title { color: var(--accent); }
+.essay-num { font-family: var(--font-serif); font-style: italic; font-size: 16px; opacity: 0.5; }
+.essay-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 400;
+  line-height: 1.1;
+  transition: color 0.2s;
+}
+.essay-meta {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  text-align: right;
+}
+.essay-meta span { display: block; margin-bottom: 4px; }
+
+/* NARRATIVE */
+.narrative-block {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+.narrative-kind {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 16px;
+}
+.narrative-block h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 5.5vw, 60px);
+  font-weight: 400;
+  line-height: 1.05;
+  margin-bottom: 40px;
+  letter-spacing: -0.01em;
+}
+.narrative-block p { font-size: 17px; line-height: 1.85; margin-bottom: 1.2em; color: var(--text); }
+.narrative-block em { font-style: italic; }
+
+/* ESSAY DETAILS */
+.essay-detail {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+.essay-detail .essay-kind-tag {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 16px;
+}
+.essay-detail h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 5vw, 54px);
+  font-weight: 400;
+  line-height: 1.05;
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+}
+.essay-prompt {
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent);
+  padding: 20px 24px;
+  margin: 24px 0 40px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  border-radius: 0 6px 6px 0;
+}
+.essay-prompt strong {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.essay-body p { font-size: 16px; line-height: 1.85; margin-bottom: 1.2em; }
+.essay-body del {
+  color: rgba(26,24,21,0.4);
+  text-decoration: line-through;
+  text-decoration-color: rgba(26,24,21,0.5);
+}
+.essay-body ins {
+  color: #B8470E;
+  text-decoration: underline;
+  text-decoration-color: rgba(184,71,14,0.5);
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+.essay-legend {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(26,24,21,0.15);
+  font-size: 12px;
+  color: rgba(26,24,21,0.6);
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.essay-legend span del,
+.essay-legend span ins { margin-right: 6px; }
+.essay-revision-toggle {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--text);
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 24px;
+}
+.essay-revision-toggle:hover { background: var(--text); color: var(--bg); }
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 720px) {
+  .nav { flex-direction: column; gap: 12px; padding: 20px; }
+  .nav-links a { margin: 0 12px; }
+  .hero { grid-template-columns: 1fr; padding: 40px 20px 16px; }
+  .hero-meta { text-align: left; }
+  .portrait-block { grid-template-columns: 1fr; padding: 24px 20px 64px; gap: 24px; }
+  .section { padding: 0 20px; }
+  .about-grid { grid-template-columns: 1fr; gap: 24px; }
+  .info-bar { grid-template-columns: repeat(2, 1fr); }
+  .values-grid { grid-template-columns: 1fr; gap: 24px; }
+  .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 180px 140px 140px; }
+  .gallery .photo:nth-child(1) { grid-row: 1 / 2; grid-column: 1 / 3; }
+  .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+  .essay-row { grid-template-columns: 50px 1fr; gap: 16px; }
+  .essay-row .essay-meta { display: none; }
+  .footer { flex-direction: column; gap: 8px; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <div class="nav-logo">Jason</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#highlights">HFI</a>
+    <a href="#writing">Writing</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<header class="hero">
+  <h1>A reader,<br>a writer,<br>a <span class="accent">restless</span> mind.</h1>
+  <div class="hero-meta">
+    <div>HFI · Ainsworth</div>
+    <div>Quanzhou → Guangzhou</div>
+    <div>中文 · English</div>
+  </div>
+</header>
+
+<!-- ============== PORTRAIT BLOCK ============== -->
+<section class="portrait-block">
+  <div class="portrait">
+    <img src="images/portrait.jpg" alt="Portrait of Jason" onerror="this.style.display='none'">
+  </div>
+  <div class="portrait-tagline">
+    "Born in a tea town, raised in a teahouse city, learning to think in two languages."
+  </div>
+</section>
+
+<!-- ============== ABOUT ============== -->
+<section class="section" id="about">
+  <div class="section-label">
+    <span>01 — About</span>
+    <span>Who, what, why</span>
+  </div>
+  <div class="about-grid">
+    <div class="about-quote">
+      "To be chary of the easy answer is to take thinking seriously."
+    </div>
+    <div class="about-body">
+      <p>I was born in Quanzhou, Fujian — the place Tieguanyin tea comes from — and grew up in Guangzhou, where I spent a lot of time in teahouses listening to grown-ups argue. I'm now a junior at HFI, in Ainsworth.</p>
+      <p>My two favorite classes look like opposites but feel the same to me. In AP World History with Mr. Schneider, we look at texts and patterns to figure out contintuity and change over time. In AP Physics C with Dr. Ma, we do the same kind of thing — just with equations. Both classes are basically asking: <em>what stays the same across different cases?</em></p>
+      <p>In AP Lang, Dr. Li taught us about System 1 and System 2 thinking, and it stuck. I notice it in myself: in Chinese, I just say what I think. In English, I run it past myself two or three times first.</p>
+      <p>I'm still working out which version of me I trust more.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== INFO BAR ============== -->
+<section class="section">
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">Hometown</div>
+      <div class="info-value">Quanzhou, Fujian</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Grew up in</div>
+      <div class="info-value">Guangzhou</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Previously</div>
+      <div class="info-value">Guangzhou Tianxing Experimental School</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Currently</div>
+      <div class="info-value">HFI · Ainsworth</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== VALUES ============== -->
+<section class="section values-section">
+  <div class="section-label">
+    <span>02 — What I hold onto</span>
+    <span>Values & philosophy</span>
+  </div>
+  <div class="values-quote">
+    "The harder you work, the better your chances — as long as you're paying attention to what you're actually working on."
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-name">Diligence</div>
+      <div class="value-desc">Tea takes time. So does anything good.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-name">Attention</div>
+      <div class="value-desc">To patterns, to language, to whoever I'm talking to.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-name">Roots</div>
+      <div class="value-desc">Quanzhou is where my family is from. Guangzhou is where I grew up.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== GALLERY ============== -->
+<section class="section" id="photos">
+  <div class="section-label">
+    <span>03 — Photographs</span>
+    <span>Selected moments</span>
+  </div>
+  <div class="gallery">
+    <div class="photo">
+      <img src="images/photo-1.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 1</div>
+    </div>
+    <div class="photo">
+      <img src="images/photo-2.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 2</div>
+    </div>
+    <div class="photo">
+      <img src="images/photo-3.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 3</div>
+    </div>
+    <div class="photo">
+      <img src="images/photo-4.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 4</div>
+    </div>
+    <div class="photo">
+      <img src="images/photo-5.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 5</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== HIGHLIGHTS ============== -->
+<section class="section" id="highlights">
+  <div class="section-label">
+    <span>04 — Highlights at HFI</span>
+    <span>Selected · 2024–26</span>
+  </div>
+  <div class="highlights-grid">
+    <div class="tile">
+      <div class="tile-top">
+        <div class="tile-icon">◆</div>
+        <div class="tile-num">i.</div>
+      </div>
+      <div>
+        <div class="tile-label">Club name</div>
+        <div class="tile-meta">Role · Years</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-top">
+        <div class="tile-icon">★</div>
+        <div class="tile-num">ii.</div>
+      </div>
+      <div>
+        <div class="tile-label">Academic highlight</div>
+        <div class="tile-meta">Detail</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-top">
+        <div class="tile-icon">●</div>
+        <div class="tile-num">iii.</div>
+      </div>
+      <div>
+        <div class="tile-label">Sport</div>
+        <div class="tile-meta">Level · Event</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-top">
+        <div class="tile-icon">▲</div>
+        <div class="tile-num">iv.</div>
+      </div>
+      <div>
+        <div class="tile-label">Something else</div>
+        <div class="tile-meta">Detail</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ESSAYS LIST ============== -->
+<section class="section" id="writing">
+  <div class="section-label">
+    <span>05 — Three essays</span>
+    <span>AP Lang · 2025–26</span>
+  </div>
+  <div class="essays-list">
+    <a class="essay-row" href="#essay-1">
+      <div class="essay-num">No. 1</div>
+      <div><div class="essay-title">Argument essay</div></div>
+      <div class="essay-meta"><span>Argument</span><span>Read →</span></div>
+    </a>
+    <a class="essay-row" href="#essay-2">
+      <div class="essay-num">No. 2</div>
+      <div><div class="essay-title">Rhetorical analysis</div></div>
+      <div class="essay-meta"><span>Rhetorical analysis</span><span>Read →</span></div>
+    </a>
+    <a class="essay-row" href="#essay-3">
+      <div class="essay-num">No. 3</div>
+      <div><div class="essay-title">Synthesis essay</div></div>
+      <div class="essay-meta"><span>Synthesis</span><span>Read →</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ============== NARRATIVE ============== -->
+<article class="narrative-block" id="narrative">
+  <div class="narrative-kind">06 — Personal narrative</div>
+  <h2>On thinking in two languages</h2>
+  <p>I grew up speaking Hokkien at home and Mandarin at school, drinking tea poured by both my grandfathers. Guangzhou is the kind of city where people still go to teahouses to argue about politics, property, anything. I didn't really "learn" Chinese. It was just how we talked.</p>
+  <p>English came later — first as a school subject, then as the language of pretty much everything I do at HFI. I noticed something almost right away: I sound different in English. Slower. More careful. In Chinese, I'll just say what I'm thinking. In English, I run it past myself two or three times before I open my mouth.</p>
+  <p>I thought this was just a me thing. Then I read Keysar, Hayakawa, and An (2012). They found that bilingual people make less biased decisions in their second language — not because it makes you smarter, but because it carries less emotional weight. Your first language is the language of your family, your jokes, the things that embarrass you. A second language doesn't have all that. So the version of me that speaks English is more careful. The version of me that speaks Chinese is more... actually me, just unfiltered.</p>
+  <p>That kind of bothers me. Which version do I trust? Which one is <em>me</em>?</p>
+  <p>I haven't figured it out yet. But here's where I am right now — I don't think I have to pick. Quanzhou is where my family is from. Guangzhou is where I grew up. HFI is where I'm learning to think in a second language.</p>
+</article>
+
+<!-- ============== ESSAY DETAILS (placeholders) ============== -->
+<article class="essay-detail" id="essay-1">
+  <div class="essay-kind-tag">Essay No. 1 — Argument</div>
+  <h2>On the cost of avoiding failure</h2>
+  <div class="essay-prompt">
+    <strong>Prompt</strong>
+    [Paste the original AP Lang prompt here.]
+  </div>
+  <div class="essay-body">
+    <p>Success is valuable, but mistakes are revealing as they can expose our weaknesses. Mistakes are a necessary part of our experience only when we face them honestly and solve them deliberat<ins>e</ins>ly. Otherwise, they become a threat to self-worth.</p>
+
+    <p>Mistakes are beneficial as they can expose our inadequacies. If we move through life unchallenged, we <del>are not able to experience</del><ins>miss</ins> useful lessons that success often hides. Over time, we may become ignorant and smug, assuming that familiarity is the same as mastery. In one study, scientists <del>let</del> <ins>ask</ins>ed several students to memorize lesson material. While some students who just reread materials feel much more prepared, others begin to test themselves in order to find out <del>any ommission of</del><ins>gaps in</ins> their memory. In this study, self-testing functions as a useful way of <del>letting students realize their mistakes from their memory</del><ins>helping students recognize errors that they thought they knew</ins>. As a result, those who practice the retrieval test hit an accuracy rate of 60 percent after one week, while those who assume they are well-prepared only get 40 percent in accuracy rate. This discrepancy is not only statistical, but it also offers guidance <del>that teach us t</del><ins>about how to</ins><del>o</del> improve ourselves. It is those humbling experiences that <del>make</del> <ins>push</ins> students to strengthen themselves. Learning begins only when people's confidence is tested rather than protected; individuals should analyze the mistakes honestly and try to correct them deliberately. In addition, the same idea is also applied in real-life. After crashes happen, the black boxes are examined, the data is scrutinized, and the procedure is revised so that the same <del>result</del> <ins>mistakes</ins> will not occur again. What matters here is not the accident itself, but the discipline of refusing to hide from it. Instead of overlooking failure and attributing it to some environmental factors, such as weathering, the aviation company tries to <ins>investigate</ins><del>find out</del> mistakes from themselves, recognize them appropriately, and <ins>correct them</ins> <del>deal with them correctly</del>. Over time, those mistakes transformed into safety of flight, increasing the revenue of the company and the happiness of consumers. This idea <ins>extends far beyond</ins><del>is broaden than</del> the aviation situation. When adversity appears, there are two options: self-protection or self-correction. Individuals who prioritize ego tend to ignore the problem they have, yet others improve themselves through refusal to shun and willingness to modify. <ins>For us, the high school students, this philosophy brings a practical lesson. When we get a question wrong on a quiz or forget an equation, we should realize there is an opportunity to identify weakness before it become a larger failure. Rather than hiding from error or feeling ashamed, students should review more carefully and practice deliberately.</ins></p>
+
+    <p>However, some people presume mistakes naturally strengthen ourselves without any active action. This idea is not correct as it overlook people's attitude toward mistakes. Perfectionist, who struggle to consummate every single part of their lives, may face mistakes as a threat to self-worth. In one psychological study, researchers find out perfectionists would withhold their subsequent effort when they are informed they fail <del>at the first time.</del> <ins>initially.</ins> In this study, mistakes do not work as guidance for identifying mistakes, but as barriers preventing further actions. This study underlines a <del>fundemental</del> <ins>fundamental</ins> limit of the idea that mistakes boost the growth of individuals: only when individuals are willing to put more effort after realizing the lack of ability, mistakes become valuable in identifying problems. Perfectionist, on the other hand, are not able to separate one failure <del>with</del> <ins>from</ins> their sense of abilities. <ins>By contrast, public figures such as Cristiano Ronaldo and Lionel Messi show that even the highest level of achievement still includes error, disappointment, and repeated pressure. What separates excellence from paralysis is not the absence of mistakes, but the refusal to let one mistake define one's entire ability.</ins> At this time, mistakes transformed from a useful tool of diagnosis to a source of paralysis, preventing further <del>growth</del> potential. What's worse, perfectionists may tend to procrastinate in their daily lives in order to prevent making mistakes. But, doing nothing can not expose any weaknesses; problems accumulate and become uncontrollable ultimately. This event <ins>highlight</ins>s <ins>the</ins> <del>underscore the</del> <ins>necessity to recognize the role mistakes play: they should not be treated as threats, but as potential for development</ins>. <del>fact that we should have a clear understanding of the role mistake play, not treating it as threat, but considering as a opportunity of growth and promotion.</del> Only in this way<del>,</del> <ins>can</ins> adversity <del>can</del> demonstrate <del>all the advantages it have</del><ins>its value</ins>.</p>
+
+    <p><ins>In the end, the value brought by mistakes is not the pain the</ins>y <ins>cause, but the truth they reveal. The history of human growth is constituted of flawless success, but of repeated failure</ins>, <ins>which encourages</ins> us <ins>to dive deeper.</ins></p>
+
+    <div class="essay-legend">
+      <span><del>strikethrough</del> = deleted</span>
+      <span><ins>underline</ins> = added</span>
+    </div>
+  </div>
+</article>
+
+<article class="essay-detail" id="essay-2">
+  <div class="essay-kind-tag">Essay No. 2 — Rhetorical analysis</div>
+  <h2>On Abigail Adams' letter to John Quincy Adams</h2>
+  <div class="essay-prompt">
+    <strong>Prompt</strong>
+    Write an essay that analyzes the rhetorical choices Adams makes to achieve her purpose of advising her son.
+  </div>
+  <div class="essay-body">
+    <p>In the letter to her son John Quincy Adams, whose father is John Adams, the second president of <ins>the </ins>United State<ins>s</ins>, Abigail Adams <del>uitilize</del> <ins>utilizes</ins> a <del>comparison</del> <ins>concessive opening that secures parental ethos</ins>, <del>a </del>vivid <del>metaphor</del> <ins>metaphors that frame self-improvement as a natural inevitability</ins>, and <ins>an </ins>allusion to <ins>a </ins>historical figure <ins>that recasts her son's circumstances as historically significant </ins>in order to advise her son to learn from his parents and have a proper understanding of experiencing difficulties.</p>
+
+    <p>At the beginning of the letter, Abigail employs a <del>comparison</del> <ins>concession</ins> to praise the virtue of <del>open-minded</del> <ins>open-mindedness</ins> and willingness to accept advice of her son. She first <del>use a</del> <ins>uses an</ins> "if" clause to make <del>a</del> <ins>an</ins> assumption of her son being reluctant to judge advice; then, she will not provide any useful suggestion since her son is incapable of learning from <del>it.</del> <ins>it, which credits him with the capacity for judgment.</ins> (Para. 1) However, subsequently, in paragraph two, <del>Abigial</del> <ins>Abigail</ins> stresses her son as a person "that is submitted to advice"<ins>, showing that he is not being lectured but rewarded for past obedience and entrusted with future responsibility. This move is essential because an adolescent reader far beyond his parents' physical reach is unlikely to absorb advice delivered as command</ins>. By <del>prasing the his willingness of learning from</del> <ins>praising his willingness to learn from</ins> advice, <del>Abigial successfully erase</del> <ins>Abigail successfully erases</ins> his inner reluctance <del>of opposing</del> <ins>to oppose</ins> suggestion, making the rest of <ins>her </ins>proposition <del>become smoother</del> <ins>smoother</ins>.</p>
+
+    <p>Later, in order to illustrate the effectiveness of learning from parents, Abigail <del>inplements</del> <ins>implements</ins> metaphor, making the message <del>esay</del> <ins>easy</ins> to accept. Firstly, in paragraph 3, <del>Abigial</del> <ins>Abigail</ins> describes a judicious <del>traveller</del> <ins>traveler</ins> as a river that "increases its stream the further it flows from its source" and a <del>springs</del> <ins>spring</ins> that "improves its qualities as it <del>pass along vein</del> <ins>passes along veins</ins> of minerals". These two facts in nature underscore the importance of <del>leaning</del> <ins>learning</ins> from the older generation; the younger generation can get useful <del>lesson</del> <ins>lessons</ins> that their parents have already experienced before, <del>avoing to make</del> <ins>avoiding making</ins> the same mistakes. Being cognizant of John's father, who <del>become</del> <ins>became</ins> the president of <ins>the </ins>United State<ins>s</ins>, <del>Abiligail</del> <ins>Abigail</ins> wants John Quincy Adams to extract all the virtues his father <del>have</del> <ins>has</ins>. Since John Adams is qualified to become <del>to</del> <ins>the</ins> supreme leader of a country, there must be something that is worth <del>for her son to study from</del> <ins>studying for her son</ins>. Furthermore, Abigail <del>compare</del> <ins>compares</ins> the difficulty <del>as</del> <ins>to</ins> "fruit of experience", not "the lessons of retirement and leisure". (Para. 4) This <del>methor</del> <ins>metaphor</ins> directly <del>underpin</del> <ins>underpins</ins> the overall message: <del>that treat setback as a opportunity of promoting, not a excuse of giving</del> <ins>to treat setbacks as an opportunity for promoting, not an excuse for giving</ins> up. Being mindful <ins>of </ins>the context of that time period of letter (1780), <ins>the </ins>United State<ins>s had</ins> just won the Independent War against the British empire to gain liberty in 1775. <del>Abigial</del> <ins>Abigail</ins>, who <ins>had </ins>just experienced this war, <del>realize</del> <ins>realized</ins> the usefulness of learning from difficulties where <ins>the </ins>British army <del>have</del> <ins>had</ins> superior weapons and the more sophisticated experience of attending war. It is those calamities that US <del>citizen have experience make</del> <ins>citizens experienced that made</ins> them tough, <del>resillient</del> <ins>resilient</ins>, and vigorous, ultimately building <del>up a </del>one of the most powerful <del>country</del> <ins>countries</ins> in <ins>the </ins>world.<ins> Through using this example, Adams reminds her son that he is an "eyewitness" to the calamities of war in his own nation. Rather than allowing him to view these difficulties as mere hardships or an excuse to be sullen, she characterizes them as the "fruit of experience."</ins></p>
+
+    <p>Moreover, <del>Abigial establish</del> <ins>Abigail establishes</ins> her credibility by making an allusion to a historical figure, Cicero. Before he <del>become</del> <ins>became</ins> a distinguished orator, Cicero was under the control of "tyranny of Catiline, Cerres, and Mark Anthony". (Para.<ins> </ins>4) However, instead of giving up and <del>becomming</del> <ins>becoming</ins> sullen, he <del>has grown</del> <ins>grew</ins> from that <del>dillema</del> <ins>dilemma</ins> and <del>becomes</del> <ins>became</ins> vigorous and powerful. This example <del>strengthen</del> <ins>strengthens</ins> <ins>the </ins>credibility of Abigail<ins>,</ins> who <del>want</del> <ins>wants</ins> to teach her son to grow and learn from experiencing difficulty. After reading this example, John Quincy Adams would change his former recognition toward <del>diffculty</del> <ins>difficulty</ins> and set up a clear understanding of setback; then, he <del>would appreciate the opportunity of failure for him to ungrade himself.</del> <ins>is no longer just a boy abroad in difficult times—he is an "eyewitness" of "calamities," a potential Cicero, with a Founding Father for a parent and a nascent republic for a country.</ins></p>
+
+    <div class="essay-legend">
+      <span><del>strikethrough</del> = deleted</span>
+      <span><ins>underline</ins> = added</span>
+    </div>
+  </div>
+</article>
+
+<article class="essay-detail" id="essay-3">
+  <div class="essay-kind-tag">Essay No. 3 — Synthesis</div>
+  <h2>On the future of public libraries</h2>
+  <div class="essay-prompt">
+    <strong>Prompt</strong>
+    [Paste the original AP Lang prompt here.]
+  </div>
+  <div class="essay-body">
+    <p>In the digital age right now, public libraries should not only maintain <del>its</del><ins>their</ins> traditional roles such as a community space, but also transform into a digital centre which can spread <ins>the</ins> newest technologies.</p>
+
+    <p>For one thing, public libraries could still work<del>s</del> as a <del>communities</del> <ins>community</ins> space that can spread knowledge and skill<ins>s</ins>. Due to its unique function<ins>,</ins> such as "preserving old record<ins>s</ins> and open<del>n</del>ing access to this information to all its citizen<ins>s</ins>", pu<ins>b</ins>lic libraries defined themselves as a <del>communities</del> <ins>community</ins> space containing reliable information. (Nancy, Source A) <del>Pulic libraries, act a role of providing equal acess of advanced information to people; therefore, it can provide people with essential skill to participate in building the democratic structure in the society.</del> <ins>This matters because the democratic process depends on an informed public that can publish a useful and reliable policy based on consensus. So libraries - unlike commercial platforms - provide vetted information without bias or paywall, equipping citizens with the skills needed to participate in democracy.</ins> This is especially <del>inportant</del> <ins>important</ins> considering the low literacy rate and educat<del>ed</del><ins>ional</ins> rate<ins>s</ins> before <del>the</del> modern society, where libraries <del>become</del> <ins>became</ins> the only source that could instill useful knowl<ins>e</ins>dge to its citizens. But in the future, <ins>the threat has shifted from a lack of information to a flood of unreliable information online, which forces</ins> <del>with its feature of containing knowldge,</del> public libraries <ins>to</ins><del>could still</del> serve as a "boundary spanner<del>s</del>", where citizens could gather together and exchange useful information and solve common problem<ins>s</ins>.(Source A) Coinciding with Nancy's perspective, Calendar of Event<ins>s</ins> in Source B also emphasize<ins>s</ins> the role of libraries <del>of</del><ins>in</ins> gathering people <del>in</del><ins>to</ins> <del>exchanging</del> <ins>exchange</ins> knowledge. The calendar showcase<ins>s</ins> people from different occupations and ages (including toddle<ins>r</ins>s, seniors, and adults; nurses, farmers, and computer <del>programmars</del><ins>programmers</ins>) <ins>who</ins> could still acquire the knowledge they need <ins>in physical space. This is precisely what online platforms cannot replicate.</ins> <del>in libraries at the present day. This fact demonstrate although people could still get information, which used to be exluded in libraries before, online with the help of internet, pulic libraries still works as a platform where people can exchange the insights and opinions, which in return, pushing them to use their knowledge to construct the society.</del></p>
+
+    <p>For another thing, public libraries should also try to transform into <ins>a</ins> digital centre that incorporate<ins>s the</ins> newest technologies in the future. At present <del>day</del>, libraries provide about twenty percent of computer users with the only access to computer<ins>s</ins> and the Internet. (Crandall, Source C) <ins>This statistic matters because it reveals an overlooked population — roughly one in five users — for whom the library is not a cultural institution but the sole pathway to the modern economy.</ins> <del>Libraries, which could get funds from government to buy lots of equipment and mobile computer labs, serve a new role of incorporating newest technologies.</del> At the present day, not everyone <del>in the society</del> can afford to enjoy the newest technologies. <ins>Without libraries, they cannot apply for jobs online, complete homework, or access government services that have moved online, where they face restriction</ins>s <ins>and obstacles in daily life. L</ins><del>L</del>ibraries, in this situation, try to erase the unequal access for the users within the society <ins>by purchasing equipment and operating mobile computer labs</ins>. What's more, this change of incorporating technologies has adapted the trend of users' habits in the present day. Users over age 16, they prefer E-books than print books because of the convenience of E-books, so they will choose to use E-books at the situation of "reading while traveling or commuting" and "getting a book quickly". (Lee, Source D) <ins>Refusing to incorporate digital books, then, is not a way of preserving libraries — it is a way of abandoning the very users libraries were designed to serve.</ins><del>Therefore, that is being said, public libraries should make a change of incorporating digital books to accept the habits among the users.</del></p>
+
+    <div class="essay-legend">
+      <span><del>strikethrough</del> = deleted</span>
+      <span><ins>underline</ins> = added</span>
+    </div>
+  </div>
+</article>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer" id="contact">
+  <span>© Jason · 2026</span>
+  <span>Built by hand</span>
+</footer>
+
+</body>
+</html>
