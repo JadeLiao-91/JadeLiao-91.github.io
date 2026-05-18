@@ -242,27 +242,84 @@ a { color: inherit; }
 /* HIGHLIGHTS */
 .highlights-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
   padding-bottom: 96px;
 }
 .tile {
   background: var(--bg-card);
   border: 1px solid var(--border-light);
   border-radius: 8px;
-  padding: 20px;
-  aspect-ratio: 1;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   transition: border-color 0.2s, transform 0.2s;
+  text-decoration: none;
+  color: inherit;
 }
 .tile:hover { border-color: var(--accent); transform: translateY(-3px); }
-.tile-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.tile-image {
+  aspect-ratio: 16/10;
+  background: var(--bg-photo);
+  background-image: repeating-linear-gradient(45deg, transparent 0 14px, rgba(255,255,255,0.22) 14px 15px);
+  position: relative;
+  overflow: hidden;
+}
+.tile-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.tile-image::after {
+  content: 'PHOTO';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: rgba(26,24,21,0.35);
+}
+.tile-image img:not([src=""]) ~ * { display: none; }
+.tile-content {
+  padding: 20px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.tile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
 .tile-num { font-family: var(--font-serif); font-style: italic; font-size: 14px; opacity: 0.4; }
-.tile-icon { font-size: 24px; color: var(--accent); }
-.tile-label { font-size: 15px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; }
-.tile-meta { font-size: 11px; opacity: 0.55; letter-spacing: 0.05em; text-transform: uppercase; }
+.tile-icon { font-size: 20px; color: var(--accent); }
+.tile-label {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.tile-desc {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.tile-meta {
+  font-size: 10px;
+  opacity: 0.55;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--border-light);
+  padding-top: 11px;
+  margin-top: auto;
+}
 
 /* ESSAYS LIST */
 .essays-list { padding-bottom: 32px; }
@@ -423,7 +480,7 @@ a { color: inherit; }
   .values-grid { grid-template-columns: 1fr; gap: 24px; }
   .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 180px 140px 140px; }
   .gallery .photo:nth-child(1) { grid-row: 1 / 2; grid-column: 1 / 3; }
-  .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+  .highlights-grid { grid-template-columns: 1fr; }
   .essay-row { grid-template-columns: 50px 1fr; gap: 16px; }
   .essay-row .essay-meta { display: none; }
   .footer { flex-direction: column; gap: 8px; padding: 20px; }
@@ -529,27 +586,43 @@ a { color: inherit; }
   </div>
 </section>
 
+<!-- ============== NARRATIVE ============== -->
+<article class="narrative-block" id="narrative">
+  <div class="narrative-kind">03 — Personal narrative</div>
+  <h2>On thinking in two languages</h2>
+  <p>I grew up speaking Hokkien at home and Mandarin at school, drinking tea poured by both my grandfathers. Guangzhou is the kind of city where people still go to teahouses to argue about politics, property, anything. I didn't really "learn" Chinese. It was just how we talked.</p>
+  <p>English came later — first as a school subject, then as the language of pretty much everything I do at HFI. I noticed something almost right away: I sound different in English. Slower. More careful. In Chinese, I'll just say what I'm thinking. In English, I run it past myself two or three times before I open my mouth.</p>
+  <p>I thought this was just a me thing. Then I read Keysar, Hayakawa, and An (2012). They found that bilingual people make less biased decisions in their second language — not because it makes you smarter, but because it carries less emotional weight. Your first language is the language of your family, your jokes, the things that embarrass you. A second language doesn't have all that. So the version of me that speaks English is more careful. The version of me that speaks Chinese is more... actually me, just unfiltered.</p>
+  <p>That kind of bothers me. Which version do I trust? Which one is <em>me</em>?</p>
+  <p>I haven't figured it out yet. But here's where I am right now — I don't think I have to pick. Quanzhou is where my family is from. Guangzhou is where I grew up. HFI is where I'm learning to think in a second language.</p>
+</article>
+
 <!-- ============== GALLERY ============== -->
 <section class="section" id="photos">
   <div class="section-label">
-    <span>03 — Photographs</span>
+    <span>04 — Photographs</span>
     <span>Selected moments</span>
   </div>
   <div class="gallery">
     <div class="photo">
       <img src="images/photo-1.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 1</div>
     </div>
     <div class="photo">
       <img src="images/photo-2.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 2</div>
     </div>
     <div class="photo">
       <img src="images/photo-3.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 3</div>
     </div>
     <div class="photo">
       <img src="images/photo-4.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 4</div>
     </div>
     <div class="photo">
       <img src="images/photo-5.jpg" alt="" onerror="this.style.display='none'">
+      <div class="photo-cap">Caption 5</div>
     </div>
   </div>
 </section>
@@ -557,47 +630,63 @@ a { color: inherit; }
 <!-- ============== HIGHLIGHTS ============== -->
 <section class="section" id="highlights">
   <div class="section-label">
-    <span>04 — Highlights at HFI</span>
+    <span>05 — Highlights at HFI</span>
     <span>Selected · 2024–26</span>
   </div>
   <div class="highlights-grid">
     <div class="tile">
-      <div class="tile-top">
-        <div class="tile-icon">◆</div>
-        <div class="tile-num">i.</div>
+      <div class="tile-image">
+        <img src="images/highlight-1.jpg" alt="" onerror="this.style.display='none'">
       </div>
-      <div>
+      <div class="tile-content">
+        <div class="tile-top">
+          <div class="tile-icon">◆</div>
+          <div class="tile-num">i.</div>
+        </div>
         <div class="tile-label">Club name</div>
+        <div class="tile-desc">[Describe what you do here, why it matters to you, what you've learned. 2–3 sentences works well.]</div>
         <div class="tile-meta">Role · Years</div>
       </div>
     </div>
     <div class="tile">
-      <div class="tile-top">
-        <div class="tile-icon">★</div>
-        <div class="tile-num">ii.</div>
+      <div class="tile-image">
+        <img src="images/highlight-2.jpg" alt="" onerror="this.style.display='none'">
       </div>
-      <div>
+      <div class="tile-content">
+        <div class="tile-top">
+          <div class="tile-icon">★</div>
+          <div class="tile-num">ii.</div>
+        </div>
         <div class="tile-label">Academic highlight</div>
+        <div class="tile-desc">[A competition, a research project, a class you loved. What were you doing, and what came out of it.]</div>
         <div class="tile-meta">Detail</div>
       </div>
     </div>
     <div class="tile">
-      <div class="tile-top">
-        <div class="tile-icon">●</div>
-        <div class="tile-num">iii.</div>
+      <div class="tile-image">
+        <img src="images/highlight-3.jpg" alt="" onerror="this.style.display='none'">
       </div>
-      <div>
+      <div class="tile-content">
+        <div class="tile-top">
+          <div class="tile-icon">●</div>
+          <div class="tile-num">iii.</div>
+        </div>
         <div class="tile-label">Sport</div>
+        <div class="tile-desc">[The sport, the level you play at, what you like about it, anything memorable.]</div>
         <div class="tile-meta">Level · Event</div>
       </div>
     </div>
     <div class="tile">
-      <div class="tile-top">
-        <div class="tile-icon">▲</div>
-        <div class="tile-num">iv.</div>
+      <div class="tile-image">
+        <img src="images/highlight-4.jpg" alt="" onerror="this.style.display='none'">
       </div>
-      <div>
+      <div class="tile-content">
+        <div class="tile-top">
+          <div class="tile-icon">▲</div>
+          <div class="tile-num">iv.</div>
+        </div>
         <div class="tile-label">Something else</div>
+        <div class="tile-desc">[Volunteering, a side project, summer program, a leadership role — something you're proud of.]</div>
         <div class="tile-meta">Detail</div>
       </div>
     </div>
@@ -607,7 +696,7 @@ a { color: inherit; }
 <!-- ============== ESSAYS LIST ============== -->
 <section class="section" id="writing">
   <div class="section-label">
-    <span>05 — Three essays</span>
+    <span>06 — Three essays</span>
     <span>AP Lang · 2025–26</span>
   </div>
   <div class="essays-list">
@@ -629,24 +718,13 @@ a { color: inherit; }
   </div>
 </section>
 
-<!-- ============== NARRATIVE ============== -->
-<article class="narrative-block" id="narrative">
-  <div class="narrative-kind">06 — Personal narrative</div>
-  <h2>On thinking in two languages</h2>
-  <p>I grew up speaking Hokkien at home and Mandarin at school, drinking tea poured by both my grandfathers. Guangzhou is the kind of city where people still go to teahouses to argue about politics, property, anything. I didn't really "learn" Chinese. It was just how we talked.</p>
-  <p>English came later — first as a school subject, then as the language of pretty much everything I do at HFI. I noticed something almost right away: I sound different in English. Slower. More careful. In Chinese, I'll just say what I'm thinking. In English, I run it past myself two or three times before I open my mouth.</p>
-  <p>I thought this was just a me thing. Then I read Keysar, Hayakawa, and An (2012). They found that bilingual people make less biased decisions in their second language — not because it makes you smarter, but because it carries less emotional weight. Your first language is the language of your family, your jokes, the things that embarrass you. A second language doesn't have all that. So the version of me that speaks English is more careful. The version of me that speaks Chinese is more... actually me, just unfiltered.</p>
-  <p>That kind of bothers me. Which version do I trust? Which one is <em>me</em>?</p>
-  <p>I haven't figured it out yet. But here's where I am right now — I don't think I have to pick. Quanzhou is where my family is from. Guangzhou is where I grew up. HFI is where I'm learning to think in a second language.</p>
-</article>
-
 <!-- ============== ESSAY DETAILS (placeholders) ============== -->
 <article class="essay-detail" id="essay-1">
   <div class="essay-kind-tag">Essay No. 1 — Argument</div>
-  <h2>The value of making mistakes</h2>
+  <h2>On the cost of avoiding failure</h2>
   <div class="essay-prompt">
     <strong>Prompt</strong>
-    [Biologist Lewis Thomas claims: “Mistakes are at the very base of human thought, embedded there, feeding the structure like root nodules. If we were not provided with the knack of being wrong, we could never get anything useful done.” Write an essay that argues your position on Thomas’s claim that mistakes are a necessary part of human experience.]
+    [Paste the original AP Lang prompt here.]
   </div>
   <div class="essay-body">
     <p>Success is valuable, but mistakes are revealing as they can expose our weaknesses. Mistakes are a necessary part of our experience only when we face them honestly and solve them deliberat<ins>e</ins>ly. Otherwise, they become a threat to self-worth.</p>
@@ -692,7 +770,7 @@ a { color: inherit; }
   <h2>On the future of public libraries</h2>
   <div class="essay-prompt">
     <strong>Prompt</strong>
-    [Write a coherent, well-written essay in which you develop a position on the role, if any, that public libraries should serve in the future.]
+    [Paste the original AP Lang prompt here.]
   </div>
   <div class="essay-body">
     <p>In the digital age right now, public libraries should not only maintain <del>its</del><ins>their</ins> traditional roles such as a community space, but also transform into a digital centre which can spread <ins>the</ins> newest technologies.</p>
